@@ -28,20 +28,20 @@ typedef struct OSExecParams;
 // Can be accessed directly or with OSAddress functions.
 #define OS_DEF_GLOBAL_VAR(type, name, addr)                                    \
     /* Memory-mapped value for direct access */                                \
-    type OS_##name : (addr);                                                   \
+    type OS_##name;                                                   \
     __DEF_ADDR_OFFSETS(name, addr)
 
 // Define a global array in *CACHED* MEM1.
 // Can be accessed directly or with OSAddress functions.
 #define OS_DEF_GLOBAL_ARR(type, name, arr, addr)                               \
     /* Memory-mapped value for direct access */                                \
-    type OS_##name arr : (addr);                                               \
+    type OS_##name [ arr ];                                               \
     __DEF_ADDR_OFFSETS(name, addr)
 
 // Define an global variable in the hardware-register range.
 #define OS_DEF_HW_REG(type, name, addr)                                        \
     /* Memory-mapped value for direct access */                                \
-    type OS_##name : (addr);
+    type OS_##name;
 
 typedef struct OSBootInfo_s {
 	DVDDiskID DVDDiskID;  // at 0x0
@@ -82,7 +82,7 @@ typedef struct OSBI2 {
  */
 OS_DEF_GLOBAL_VAR(OSBootInfo, BOOT_INFO,                   0x80000000);
 OS_DEF_GLOBAL_VAR(OSDebugInterface, DEBUG_INTERFACE,       0x80000040);
-OS_DEF_GLOBAL_ARR(u8, DB_INTEGRATOR_HOOK, [0x24],          0x80000060);
+OS_DEF_GLOBAL_ARR(u8, DB_INTEGRATOR_HOOK, 0x24,          0x80000060);
 OS_DEF_GLOBAL_VAR(struct OSContext*, CURRENT_CONTEXT_PHYS, 0x800000C0);
 OS_DEF_GLOBAL_VAR(u32, PREV_INTR_MASK,                     0x800000C4);
 OS_DEF_GLOBAL_VAR(u32, CURRENT_INTR_MASK,                  0x800000C8);
@@ -102,9 +102,9 @@ OS_DEF_GLOBAL_VAR(u32, CPU_CLOCK_SPEED,                    0x800000FC);
 /**
  * 0x80003000 - 0x80003F00
  */
-OS_DEF_GLOBAL_ARR(void*, EXCEPTION_TABLE, [15],          0x80003000);
+OS_DEF_GLOBAL_ARR(void*, EXCEPTION_TABLE, 15,          0x80003000);
 OS_DEF_GLOBAL_VAR(void*, INTR_HANDLER_TABLE,             0x80003040);
-OS_DEF_GLOBAL_ARR(volatile s32, EXI_800030C0, [],        0x800030C0);
+OS_DEF_GLOBAL_ARR(volatile s32, EXI_800030C0, 0,        0x800030C0);
 OS_DEF_GLOBAL_VAR(void*, FIRST_REL,                      0x800030C8);
 OS_DEF_GLOBAL_VAR(void*, LAST_REL,                       0x800030CC);
 OS_DEF_GLOBAL_VAR(void*, REL_NAME_TABLE,                 0x800030D0);
@@ -143,23 +143,23 @@ OS_DEF_GLOBAL_VAR(u32, NAND_TITLE_LAUNCH_CODE,           0x8000318C);
 OS_DEF_GLOBAL_VAR(u32, NAND_TITLE_RETURN_CODE,           0x80003190);
 OS_DEF_GLOBAL_VAR(u32, CURRENT_APP_NAME_1,               0x80003194);
 OS_DEF_GLOBAL_VAR(u8, DEVICE_CHECK_CODE,                 0x8000319C);
-OS_DEF_GLOBAL_ARR(u8, SC_PRDINFO, [0x100],               0x80003800);
+OS_DEF_GLOBAL_ARR(u8, SC_PRDINFO, 0x100,               0x80003800);
 
 /**
  * PI hardware globals
  */
-volatile u32 PI_HW_REGS[] : 0xCC003000;
+volatile u32 PI_HW_REGS[]; //: 0xCC003000;
 typedef enum {
-    PI_INTSR,    //!< 0xCC003000
-    PI_INTMR,    //!< 0xCC003004
-    PI_REG_0x8,  //!< 0xCC003008
-    PI_REG_0xC,  //!< 0xCC00300C
-    PI_REG_0x10, //!< 0xCC003010
-    PI_REG_0x14, //!< 0xCC003014
-    PI_REG_0x18, //!< 0xCC003018
-    PI_REG_0x1C, //!< 0xCC00301C
-    PI_REG_0x20, //!< 0xCC003020
-    PI_RESET,    //!< 0xCC003024
+    PI_INTSR = 0xCC003000,
+    PI_INTMR = 0xCC003004,
+    PI_REG_0x8 = 0xCC003008,
+    PI_REG_0xC = 0xCC00300C,
+    PI_REG_0x10 = 0xCC003010,
+    PI_REG_0x14 = 0xCC003014,
+    PI_REG_0x18 = 0xCC003018,
+    PI_REG_0x1C = 0xCC00301C,
+    PI_REG_0x20 = 0xCC003020,
+    PI_RESET = 0xCC003024,
     // . . .
 } PIHwReg;
 
@@ -202,29 +202,29 @@ typedef enum {
  * MI Hardware Registers
  * https://www.gc-forever.com/yagcd/chap5.html#sec5.5
  */
-volatile u16 MI_HW_REGS[] : 0xCC004000;
+volatile u16 MI_HW_REGS[]; //: 0xCC004000;
 typedef enum {
-    MI_PAGE_MEM0_H, //!< 0xCC004000
-    MI_PAGE_MEM0_L, //!< 0xCC004002
-    MI_PAGE_MEM1_H, //!< 0xCC004004
-    MI_PAGE_MEM1_L, //!< 0xCC004006
-    MI_PAGE_MEM2_H, //!< 0xCC004008
-    MI_PAGE_MEM2_L, //!< 0xCC00400A
-    MI_PAGE_MEM3_H, //!< 0xCC00400C
-    MI_PAGE_MEM3_L, //!< 0xCC00400E
-    MI_PROT_MEM0,   //!< 0xCC004010
-    MI_PROT_MEM1,   //!< 0xCC004012
-    MI_PROT_MEM2,   //!< 0xCC004014
-    MI_PROT_MEM3,   //!< 0xCC004016
-    MI_REG_0x18,    //!< 0xCC004018
-    MI_REG_0x1A,    //!< 0xCC00401A
-    MI_INTMR,       //!< 0xCC00401C
-    MI_INTSR,       //!< 0xCC00401E
-    MI_REG_0x20,    //!< 0xCC004020
-    MI_ADDRLO,      //!< 0xCC004022
-    MI_ADDRHI,      //!< 0xCC004024
-    MI_REG_0x26,    //!< 0xCC004026
-    MI_REG_0x28,    //!< 0xCC004028
+    MI_PAGE_MEM0_H = 0xCC004000,
+    MI_PAGE_MEM0_L = 0xCC004002,
+    MI_PAGE_MEM1_H = 0xCC004004,
+    MI_PAGE_MEM1_L = 0xCC004006,
+    MI_PAGE_MEM2_H = 0xCC004008,
+    MI_PAGE_MEM2_L = 0xCC00400A,
+    MI_PAGE_MEM3_H = 0xCC00400C,
+    MI_PAGE_MEM3_L = 0xCC00400E,
+    MI_PROT_MEM0 = 0xCC004010,
+    MI_PROT_MEM1 = 0xCC004012,
+    MI_PROT_MEM2 = 0xCC004014,
+    MI_PROT_MEM3 = 0xCC004016,
+    MI_REG_0x18 = 0xCC004018,
+    MI_REG_0x1A = 0xCC00401A,
+    MI_INTMR = 0xCC00401C,
+    MI_INTSR = 0xCC00401E,
+    MI_REG_0x20 = 0xCC004020,
+    MI_ADDRLO = 0xCC004022,
+    MI_ADDRHI = 0xCC004024,
+    MI_REG_0x26 = 0xCC004026,
+    MI_REG_0x28 = 0xCC004028,
     // . . .
 } MIHwReg;
 

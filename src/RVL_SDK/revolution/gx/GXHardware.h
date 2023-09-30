@@ -30,7 +30,7 @@ extern volatile union {
     unsigned int ui;
     void* p;
     float f;
-} WGPIPE : 0xcc008000;
+} WGPIPE; // : 0xcc008000;
 
 /**
  * GX FIFO commands
