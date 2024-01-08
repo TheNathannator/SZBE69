@@ -212,6 +212,10 @@ config.linker_version = "Wii/1.3"
 Matching = True
 NonMatching = False
 
+# For objects that are affected by code merging
+# Periodically try setting this to True to see if anything's started matching
+CodeMergeIssues = False
+
 config.warn_missing_config = True
 config.warn_missing_source = False
 config.libs = [
@@ -487,6 +491,15 @@ config.libs = [
             Object(Matching, "Runtime/global_destructor_chain.c"),
             Object(Matching, "Runtime/__init_cpp_exceptions.cpp"),
         ],
+    },
+    {
+        "lib": "std_native",
+        "mw_version": "Wii/1.3",
+        "cflags": cflags_runtime,
+        "host": False,
+        "objects": [
+            Object(CodeMergeIssues, "std_native/src/new.cpp"),
+        ]
     },
 ]
 
