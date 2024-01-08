@@ -2,7 +2,7 @@
 #define RB3_STRING_HPP
 #include "textstream.hpp"
 #include "symbol.hpp"
-#include "jsonconverter.hpp"
+#include <vector>
 
 class String : public TextStream {
 public:
@@ -50,8 +50,7 @@ public:
     int rfind(const char *) const; // fn_80362478
     bool contains(const char *) const; // fn_80362530
 
-    // TODO: figure out what this does
-    void fn_80362560(char *, UnknownJsonConverterMember *); // fn_80362560
+    int split(const char *token, std::vector<String> &splits); // fn_80362560
 
     String substr(unsigned int); // fn_80362660
     String substr(unsigned int, unsigned int) const; // fn_8036266C

@@ -401,28 +401,28 @@ String *String::replace(unsigned int start, String *str) {
     return replace(start, 0, str->c_str());
 }
 
-extern void fn_801CEDFC(UnknownJsonConverterMember *, String *);
+int String::split(const char *token, std::vector<String>& splits) {
+    // no idea what this is here for, but it sure is called
+    splits.empty();
 
-void String::fn_80362560(char *buf, UnknownJsonConverterMember *mem) {
-    mem->fn_800AFE60();
-    int var_r31, var_r30;
+    int lastIndex = 0;
+    int splitIndex = find_first_of(token, 0);
 
-    var_r31 = 0;
-    var_r30 = find_first_of(buf, 0);
-
-    while (var_r30 != (size_t)-1) {
-        if (var_r30 > var_r31) {
-            String sp14 = substr(var_r31, var_r30 - var_r31);
-            fn_801CEDFC(mem, &sp14);
+    while (splitIndex != -1U) {
+        if (splitIndex > lastIndex) {
+            String split = substr(lastIndex, splitIndex - lastIndex);
+            splits.push_back(split);
         }
-        var_r31 = var_r30 + 1;
-        var_r30 = find_first_of(buf, var_r31);
+        lastIndex = splitIndex + 1;
+        splitIndex = find_first_of(token, lastIndex);
     }
-    if (var_r31 < length()) {
-        String sp14 = substr(var_r31, length() - var_r31);
-        fn_801CEDFC(mem, &sp14);
+
+    if (lastIndex < length()) {
+        String split = substr(lastIndex, length() - lastIndex);
+        splits.push_back(split);
     }
-    mem->GetUnk4();
+
+    return splits.size();
 }
 
 // inserts the char c into this->text at index idx, cnt times
