@@ -21,6 +21,7 @@ Modifications:
 - Redefinitions of stdin/stdout/stderr in stdio.h have been disabled,
   as they caused build errors in .c files.
 - A new StlNodeAlloc allocator has been added to match the binary.
+- The vector class has been modified in order to match the binary.
 
 GETTING STLPORT
 
