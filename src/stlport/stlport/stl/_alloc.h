@@ -492,8 +492,7 @@ public:
   };
 #endif
 
-  StlNodeAlloc() _STLP_NOTHROW {}
-  StlNodeAlloc(StlNodeAlloc const &) _STLP_NOTHROW {}
+  ~StlNodeAlloc() _STLP_NOTHROW {}
 
   value_type *allocate(const size_type count) {
     return reinterpret_cast<value_type *>(
