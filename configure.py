@@ -158,7 +158,6 @@ cflags_base = [
     "-Cpp_exceptions off",
     # "-W all",
     "-O4,s",
-    "-inline auto",
     '-pragma "cats off"',
     '-pragma "warn_notinlined off"',
     "-maxerrors 1",
@@ -175,11 +174,16 @@ cflags_rb3 = [
     "-sdata2 2",
     "-pragma \"merge_float_consts on\"",
     "-RTTI on",
+    "-inline off",
 ]
 
 cflags_c = [
-    *cflags_rb3,
-    "-lang=c99"
+    *cflags_base,
+    "-lang=c99",
+    "-sdata 2",
+    "-sdata2 2",
+    "-pragma \"merge_float_consts on\"",
+    "-inline auto",
 ]
 
 cflags_zlib = [
