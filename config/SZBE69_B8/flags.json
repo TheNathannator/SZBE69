@@ -37,9 +37,8 @@
                 "-use_lmw_stmw on",
                 "-common off",
 
-                "-lang=c99",
-                "-O4,p",
-                "-inline auto"
+                "-func_align 4",
+                "-O4,s"
             ]
         },
         "rvl_sdk": {
