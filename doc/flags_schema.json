@@ -36,6 +36,10 @@
             }
           }
         },
+        "required": [
+          "base",
+          "flags"
+        ],
         "additionalProperties": false
       }
     }
