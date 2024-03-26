@@ -18,4 +18,6 @@ public:
     void SetDiskError(DiskError);
 };
 
+extern PlatformMgr ThePlatformMgr;
+
 #endif

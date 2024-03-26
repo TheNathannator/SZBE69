@@ -3,8 +3,6 @@
 #include "os/PlatformMgr.h"
 #include <string.h>
 
-extern PlatformMgr ThePlatformMgr;
-
 void StreamChecksum::Begin(){
     if(mState == 1) End();
     mSHA1.Reset();
@@ -15,7 +13,7 @@ void StreamChecksum::Update(const unsigned char* data, unsigned int ui){
     if(ui != 0){
         switch(mState){
             case 0: Begin(); break;
-            case 2: 
+            case 2:
                 MILO_FAIL("Attempted to update a StreamChecksum that has already been finalized.  After calling End (or GetHash), you need to call Begin to restart the checksum.");
                 Begin();
                 break;
