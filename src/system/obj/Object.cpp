@@ -13,7 +13,7 @@ std::map<Symbol, ObjectFunc*> Hmx::Object::sFactories;
 
 ObjectDir* Hmx::Object::DataDir(){
     if(mDir != 0) return mDir;
-    else return ObjectDir::sMainDir;
+    else return ObjectDir::Main();
 }
 
 const char* newobjectstr = "Unknown class %s";
@@ -241,7 +241,7 @@ DataNode Hmx::Object::Handle(DataArray* _msg, bool _warn){
     {
         static Symbol _s("set_name");
         if(sym == _s){
-    
+
         }
     }
     HANDLE_ACTION_STATIC(set_type, SetType(_msg->Sym(2)));
