@@ -16,6 +16,7 @@ public:
     bool bool1, bool2;
 
     void SetDiskError(DiskError);
+    void Poll();
 };
 
 extern PlatformMgr ThePlatformMgr;

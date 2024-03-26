@@ -3,9 +3,10 @@
         "mw_version": "Wii/1.3",
         "cflags": "main",
         "objects": {
-            "Main.cpp": "Matching",
             "App.cpp": "NonMatching",
-            "ChecksumData_wii.cpp": "Matching"
+            "BandOffline.cpp": "NonMatching",
+            "ChecksumData_wii.cpp": "Matching",
+            "Main.cpp": "Matching"
         }
     },
     "band3": {
