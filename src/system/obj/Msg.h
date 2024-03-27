@@ -114,7 +114,6 @@ public:
     virtual ~Message(){ mData->Release(); }
 
     DataArray* mData;
-    DataArray* Data(){ return mData; }
     operator DataArray*(){ return mData; }
 };
 
