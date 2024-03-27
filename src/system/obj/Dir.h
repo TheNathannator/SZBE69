@@ -1,6 +1,7 @@
 #ifndef OBJ_DIR_H
 #define OBJ_DIR_H
 #include "obj/Object.h"
+#include "obj/DirLoader.h"
 #include "utl/FilePath.h"
 #include "utl/StringTable.h"
 #include "utl/KeylessHash.h"
@@ -17,6 +18,26 @@ enum ViewportId {
     kNumViewports = 8,
 };
 
+enum InlineDirType {
+    kInlineNever = 0,
+    kInlineCached = 1 << 0,
+    kInlineAlways = 1 << 1,
+};
+
+template <class T> class ObjDirPtr : public ObjRef {
+public:
+
+    ObjDirPtr(T* dir) : mDir(dir), mLoader(0) {}
+    virtual ~ObjDirPtr(); // nightmare
+    virtual Hmx::Object* RefOwner(){ return 0; }
+    virtual void Replace(Hmx::Object*, Hmx::Object*); // nightmare
+    virtual bool IsDirPtr(){ return true; }
+    void operator=(T*);
+
+    T* mDir;
+    DirLoader* mLoader;
+};
+
 class ObjectDir : public virtual Hmx::Object {
 public:
     struct Entry {
@@ -29,6 +50,14 @@ public:
 
         const char* name;
         Hmx::Object* obj;
+    };
+
+    struct InlinedDir {
+        // Note: names are fabricated, no DWARF info
+        ObjDirPtr<ObjectDir> dir;
+        FilePath file;
+        bool shared;
+        InlineDirType inlineDirType;
     };
 
     static ObjectDir* sMainDir;
@@ -73,32 +102,17 @@ public:
     StringTable mStringTable;
     FilePath mProxyFile;
     bool mProxyOverride;
-    bool mInline;
-    int mLoader; // should be a DirLoader*
-    std::vector<ObjectDir*> mSubDirs;
+    bool mInlineProxy;
+    DirLoader* mLoader;
+    std::vector<ObjDirPtr<ObjectDir> > mSubDirs;
     bool mIsSubDir;
-    int unk58;
+    InlineDirType mInlineSubDirType;
     const char* mPathName;
-    FilePath fpath2;
-    std::vector<int> mViewPorts; // fix the vector's data type
-    int unk74;
-    int unk78;
-    const char* unk7c;
-
-};
-
-template <class T> class ObjDirPtr : public ObjRef {
-public:
-
-    ObjDirPtr(T* dir) : mDir(dir), mLoader(0) {}
-    virtual ~ObjDirPtr(); // nightmare
-    virtual Hmx::Object* RefOwner(){ return 0; }
-    virtual void Replace(Hmx::Object*, Hmx::Object*); // nightmare
-    virtual bool IsDirPtr(){ return true; }
-    void operator=(T*);
-
-    T* mDir;
-    int* mLoader; // DirLoader*
+    FilePath mStoredFile;
+    std::vector<InlinedDir> mInlinedDirs;
+    Hmx::Object* mCurCam;
+    bool mAlwaysInlined;
+    const char* mAlwaysInlineHash;
 };
 
 #endif
