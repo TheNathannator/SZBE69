@@ -2,9 +2,8 @@
 #include "obj/Data.h"
 #include "obj/Object.h"
 #include "os/JoypadMsgs.h"
+#include "ui/UI.h"
 #include "ui/UIComponent.h"
-
-class UIManager { public: void InitResources(Symbol); }; UIManager* TheUI;
 
 INIT_REVS(UIButton)
 

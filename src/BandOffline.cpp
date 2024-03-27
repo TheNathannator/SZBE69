@@ -8,6 +8,7 @@
 #include "system/os/Debug.h"
 #include "system/os/System.h"
 #include "system/os/PlatformMgr.h"
+#include "system/ui/UI.h"
 #include "system/utl/Option.h"
 
 void BandOffline::Init() {
@@ -46,7 +47,7 @@ DataNode BandOffline::MakeCharClipBudget(DataArray *da) {
             MILO_LOG("Loading %s", song);
             CharStatKeeper stats[4];
             float duration = 0;
-            while (TheUI.InTransition()) {
+            while (TheUI->InTransition()) {
                 BandOffline::Poll();
             }
 
@@ -168,9 +169,9 @@ void BandOffline::Poll() {
     ThePlatformMgr.Poll();
     TheNet.Poll();
     TheRockCentral.Poll();
-    TheUI.0x04.0x18();
+    TheUI->Poll();
     TheTaskMgr.Poll();
     TheRnd.0x98();
-    TheUI.0x04.0x1C();
+    TheUI->Draw();
     TheRnd.0x9C();
 }
