@@ -238,6 +238,7 @@
             "system/ui/UIPanel.cpp": "NonMatching",
             "system/ui/UIPicture.cpp": "NonMatching",
             "system/ui/UIResource.cpp": "NonMatching",
+            "system/ui/UIScreen.cpp": "NonMatching",
             "system/ui/UITransitionHandler.cpp": "NonMatching",
 
             "system/utl/BeatMap.cpp": "NonMatching",
