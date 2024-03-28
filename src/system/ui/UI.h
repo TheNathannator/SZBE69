@@ -6,7 +6,7 @@
 #include "ui/UIComponent.h"
 #include "ui/UIScreen.h"
 
-class UIManager : public Hmx::Object {
+class UIManager : public virtual Hmx::Object {
 public:
     UIManager();
 
