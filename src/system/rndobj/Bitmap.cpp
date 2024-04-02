@@ -4,6 +4,8 @@
 #include "utl/ChunkStream.h"
 #include "utl/MemMgr.h"
 
+static unsigned char BITMAP_REV = 1;
+
 void RndBitmap::SaveHeader(BinStream& bs) const {
     static u8 pad[0x13];
     u16 h = mHeight;
@@ -46,7 +48,7 @@ BinStream& operator>>(BinStream& bs, tagBITMAPINFOHEADER& bmih) {
 
 
 BinStream& operator<<(BinStream& bs, const tagBITMAPINFOHEADER& bmih){
-    bs << bmih.biSize << bmih.biWidth << bmih.biHeight << bmih.biPlanes << bmih.biBitCount << 
+    bs << bmih.biSize << bmih.biWidth << bmih.biHeight << bmih.biPlanes << bmih.biBitCount <<
         bmih.biCompression << bmih.biSizeImage << bmih.biXPelsPerMeter << bmih.biYPelsPerMeter << bmih.biClrUsed << bmih.biClrImportant;
     return bs;
 }

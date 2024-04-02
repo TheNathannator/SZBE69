@@ -88,6 +88,4 @@ public:
     }
 };
 
-unsigned char BITMAP_REV = 1;
-
 #endif // RNDOBJ_BITMAP_H
