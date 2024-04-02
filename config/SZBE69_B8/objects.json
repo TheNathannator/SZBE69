@@ -228,6 +228,7 @@
             "system/synth/tomcrypt/ctr.c": "NonMatching",
 
             "system/ui/Screenshot.cpp": "NonMatching",
+            "system/ui/UI.cpp": "NonMatching",
             "system/ui/UIButton.cpp": "NonMatching",
             "system/ui/UIColor.cpp": { "status": "Matching", "extra_cflags": [ "-inline level=1" ]},
             "system/ui/UIComponent.cpp": "NonMatching",
@@ -238,7 +239,7 @@
             "system/ui/UIPanel.cpp": "NonMatching",
             "system/ui/UIPicture.cpp": "NonMatching",
             "system/ui/UIResource.cpp": "NonMatching",
-            "system/ui/UIScreen.cpp": "NonMatching",
+            "system/ui/UIScreen.cpp": "Matching",
             "system/ui/UITransitionHandler.cpp": "NonMatching",
 
             "system/utl/BeatMap.cpp": "NonMatching",

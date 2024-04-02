@@ -1,11 +1,11 @@
 #ifndef UI_UIPANEL_H
 #define UI_UIPANEL_H
 #include "obj/Object.h"
+#include "obj/DirLoader.h"
+#include "ui/PanelDir.h"
+#include "ui/UIComponent.h"
 #include "utl/FilePath.h"
 #include "utl/Str.h"
-
-class PanelDir;
-class DirLoader;
 
 enum State {
     kUnloaded = 0,
@@ -43,7 +43,12 @@ public:
     void CheckLoad();
     void CheckUnload();
     bool CheckIsLoaded();
+
+    void SetLoadedDir(class PanelDir*, bool);
     void UnsetLoadedDir();
+
+    UIComponent* FocusComponent();
+
     DataNode OnLoad(DataArray*);
 
     class PanelDir* mDir;

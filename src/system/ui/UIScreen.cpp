@@ -127,7 +127,7 @@ void UIScreen::Poll() {
     }
 }
 
-// Likely weak based on how bss gets used
+#pragma pool_data off
 void UIScreen::Enter(UIScreen* from) {
     if (from != NULL) {
         sUnloadingScreen = from;
@@ -145,6 +145,7 @@ void UIScreen::Enter(UIScreen* from) {
     HandleType(msg);
     Poll();
 }
+#pragma pool_data reset
 
 void UIScreen::Draw() {
     if (!mShowing) {
@@ -394,6 +395,31 @@ DataNode UIScreen::ForeachPanel(const DataArray* da) {
     *var = tmp;
     return 0;
 }
+
+#pragma dont_inline on
+static void ForceGenerateInline() {
+    UIScreen screen;
+#define FORCE_FUNC(name) screen.UIScreen::name
+    FORCE_FUNC(ClassName());
+    FORCE_FUNC(SetType(UIPanel));
+    FORCE_FUNC(SetTypeDef(NULL));
+    FORCE_FUNC(LoadPanels());
+    FORCE_FUNC(UnloadPanels());
+    FORCE_FUNC(CheckIsLoaded());
+    FORCE_FUNC(IsLoaded());
+    FORCE_FUNC(Poll());
+    FORCE_FUNC(Draw());
+    FORCE_FUNC(InComponentSelect());
+    FORCE_FUNC(Enter(NULL));
+    FORCE_FUNC(Entering());
+    FORCE_FUNC(Exit(NULL));
+    FORCE_FUNC(Exiting());
+    class String str;
+    FORCE_FUNC(Print(str));
+    FORCE_FUNC(Unloading());
+#undef FORCE_FUNC
+}
+#pragma dont_inline reset
 
 // void UIScreen::SetType(Symbol) {}
 // void UIScreen::ClassName() const {}

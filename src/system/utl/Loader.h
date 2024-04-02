@@ -44,6 +44,8 @@ public:
 
     Loader* AddLoader(const FilePath&, LoaderPos);
 
+    void PollUntilLoaded(Loader*, Loader*);
+
     // // total size: 0x60
     // class list mLoaders; // offset 0x0, size 0x8
     // enum Platform mPlatform; // offset 0x8, size 0x4
@@ -54,6 +56,8 @@ public:
     // class list mLoading; // offset 0x1C, size 0x8
     // class Timer mTimer; // offset 0x28, size 0x38
 };
+
+extern LoadMgr TheLoadMgr;
 
 class FileLoader : public Loader {
 public:

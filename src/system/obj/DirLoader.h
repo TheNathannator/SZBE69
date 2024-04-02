@@ -13,6 +13,8 @@ public:
     virtual Hmx::Object* RefOwner();
     virtual void Replace(Hmx::Object*, Hmx::Object*);
 
+    ObjectDir* GetDir();
+
     int filler;
 };
 

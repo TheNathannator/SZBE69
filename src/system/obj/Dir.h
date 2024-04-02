@@ -24,15 +24,61 @@ enum InlineDirType {
     kInlineAlways = 1 << 1,
 };
 
-template <class T> class ObjDirPtr : public ObjRef {
+template <class T>
+class ObjDirPtr : public ObjRef {
 public:
+    ObjDirPtr() : mDir(NULL), mLoader(NULL) {}
+    ObjDirPtr(T* dir) : mDir(dir), mLoader(NULL) {}
 
-    ObjDirPtr(T* dir) : mDir(dir), mLoader(0) {}
     virtual ~ObjDirPtr(); // nightmare
-    virtual Hmx::Object* RefOwner(){ return 0; }
+    virtual Hmx::Object* RefOwner(){ return NULL; }
     virtual void Replace(Hmx::Object*, Hmx::Object*); // nightmare
     virtual bool IsDirPtr(){ return true; }
-    void operator=(T*);
+
+    void PostLoad(Loader* loader) {
+        if (mLoader == NULL) {
+            return;
+        }
+
+        TheLoadMgr.PollUntilLoaded(mLoader, loader);
+        T* dir = mLoader->GetDir();
+        mLoader = NULL;
+        *this = dir;
+    }
+
+    T* operator->() {
+        MILO_ASSERT(mDir, 0x4D);
+        return mDir;
+    }
+
+    ObjDirPtr<T>& operator=(const ObjDirPtr<T>& dir) {
+
+    }
+
+    ObjDirPtr<T>& operator=(T* dir) {
+        if (mLoader != NULL && mLoader->IsLoaded()) {
+            PostLoad(NULL);
+        }
+
+        if (dir != mDir || dir == NULL) {
+            delete mLoader;
+            mLoader = NULL;
+
+            if (mDir != NULL) {
+                mDir->Release(this);
+                if (!mDir->HasDirPtrs()) {
+                    delete mDir;
+                }
+            }
+
+            mDir = dir;
+            if (dir != NULL) {
+                dir->AddRef(this);
+            }
+        }
+
+        return *this;
+    }
 
     T* mDir;
     DirLoader* mLoader;
@@ -91,6 +137,9 @@ public:
     void Reserve(int, int);
     bool IsProxy() const;
     bool HasSubDir(ObjectDir*);
+
+    ObjectDir* NextSubDir(int&);
+    bool HasDirPtrs() const;
 
     Hmx::Object* FindObject(const char*, bool);
     static Symbol StaticClassName();

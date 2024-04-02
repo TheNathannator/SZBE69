@@ -1,6 +1,4 @@
 #include "ui/UIPanel.h"
-#include "ui/PanelDir.h"
-#include "obj/DirLoader.h"
 #include "obj/Object.h"
 #include "os/Debug.h"
 #include "utl/Symbols.h"
@@ -8,7 +6,9 @@
 
 int UIPanel::sMaxPanelId = 0;
 
-UIPanel::UIPanel() : mDir(0), mLoader(0), mFocusName(), mState(kUnloaded), mLoaded(0), mPaused(0), mShowing(1), mForceExit(0), mLoadRefs(0), mFilePath(), mPanelId(sMaxPanelId++) {
+UIPanel::UIPanel()
+    : mDir(NULL), mLoader(NULL), mState(kUnloaded), mLoaded(false), mPaused(false),
+      mShowing(true), mForceExit(false), mLoadRefs(0), mPanelId(sMaxPanelId++) {
     MILO_ASSERT(sMaxPanelId < 0x8000, 0x24);
 }
 
@@ -40,6 +40,11 @@ void UIPanel::CheckUnload(){
         }
         if(--mLoadRefs == 0) Unload();
     }
+}
+
+void UIPanel::SetLoadedDir(class PanelDir* dir, bool) {
+    MILO_ASSERT(!mLoader, 0x6A);
+    MILO_ASSERT(dir, 0x6B);
 }
 
 bool UIPanel::IsLoaded() const {
