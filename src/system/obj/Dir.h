@@ -116,24 +116,3 @@ public:
 };
 
 #endif
-
-// class ObjectDir : public virtual Object {
-//     // total size: 0xAC
-// public:
-//     void * __vptr$; // offset 0x4, size 0x4
-// private:
-//     class KeylessHash mHashTable; // offset 0x8, size 0x20
-//     class StringTable mStringTable; // offset 0x28, size 0x14
-//     class FilePath mProxyFile; // offset 0x3C, size 0xC
-//     unsigned char mProxyOverride; // offset 0x48, size 0x1
-//     unsigned char mInline; // offset 0x49, size 0x1
-//     class DirLoader * mLoader; // offset 0x4C, size 0x4
-//     class vector mSubDirs; // offset 0x50, size 0xC
-//     unsigned char mIsSubDir; // offset 0x5C, size 0x1
-//     char * mPathName; // offset 0x60, size 0x4
-//     class vector mViewports; // offset 0x64, size 0xC
-//     enum ViewportId mCurViewport; // offset 0x70, size 0x4
-//     class Object * mCurAnim; // offset 0x74, size 0x4
-//     class Object * mCurCam; // offset 0x78, size 0x4
-//     const char * mDestFileName; // offset 0x7C, size 0x4
-// };
