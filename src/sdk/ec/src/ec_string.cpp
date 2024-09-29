@@ -62,40 +62,12 @@ namespace ec {
         return *this;
     }
 
-    template <>
-    ECString tostring<long>(long value) {
-        ECOstringstream stream;
-        stream << value;
-        return stream.str();
-    }
-
-    template <>
-    ECString tostring<unsigned long>(unsigned long value) {
-        ECOstringstream stream;
-        stream << value;
-        return stream.str();
-    }
-
-    template <>
-    ECString tostring<long long>(long long value) {
-        ECOstringstream stream;
-        stream << value;
-        return stream.str();
-    }
-
-    template <>
-    ECString tostring<unsigned long long>(unsigned long long value) {
-        ECOstringstream stream;
-        stream << value;
-        return stream.str();
-    }
-
-    template <>
-    ECString tostring<const char *>(const char *value) {
-        ECOstringstream stream;
-        stream << value;
-        return stream.str();
-    }
+    // explicit instantiations
+    template ECString tostring<long>(long value);
+    template ECString tostring<unsigned long>(unsigned long value);
+    template ECString tostring<long long>(long long value);
+    template ECString tostring<unsigned long long>(unsigned long long value);
+    template ECString tostring<const char *>(const char * value);
 
     ECString toHexString(unsigned long long value, int digits) {
         if ((unsigned int)digits >= 17) {

@@ -24,7 +24,11 @@ namespace ec {
     };
 
     template <typename T>
-    ECString tostring(T value);
+    ECString tostring(T value) {
+        ECOstringstream stream;
+        stream << value;
+        return stream.str();
+    }
 
     ECString toHexString(unsigned long long value, int digits);
 
