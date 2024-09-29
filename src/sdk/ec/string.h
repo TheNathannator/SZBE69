@@ -9,7 +9,7 @@ typedef std::basic_string<char, std::char_traits<char>, ECAllocator<char> > ECSt
 
 namespace ec {
 
-    class ECOstringstream {
+    class ECOstringstream : private ECString {
     public:
         ECOstringstream& operator<<(const ECString& str);
         ECOstringstream& operator<<(const char* str);
@@ -20,10 +20,7 @@ namespace ec {
         ECOstringstream& operator<<(unsigned long long value);
         ECOstringstream& operator<<(long long value);
 
-        ECString str() { return m_Buffer; }
-
-    private:
-        ECString m_Buffer;
+        ECString str() { return *this; }
     };
 
     template <typename T>

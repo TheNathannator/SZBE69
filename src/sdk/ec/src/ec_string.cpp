@@ -11,25 +11,25 @@ static char *hextbl = "0123456789abcdef";
 namespace ec {
 
     ECOstringstream &ECOstringstream::operator<<(const ECString &str) {
-        m_Buffer.append(str);
+        ECString::append(str);
         return *this;
     }
 
     ECOstringstream &ECOstringstream::operator<<(const char *str) {
-        m_Buffer.append(str);
+        ECString::append(str);
         return *this;
     }
 
     ECOstringstream &ECOstringstream::operator<<(char value) {
-        m_Buffer.append(value);
+        ECString::append(value);
         return *this;
     }
 
     ECOstringstream &ECOstringstream::operator<<(bool value) {
         if (value) {
-            m_Buffer.append("1");
+            ECString::append("1");
         } else {
-            m_Buffer.append("0");
+            ECString::append("0");
         }
         return *this;
     }
@@ -37,28 +37,28 @@ namespace ec {
     ECOstringstream &ECOstringstream::operator<<(unsigned long value) {
         char buffer[32];
         std::snprintf(buffer, sizeof(buffer), "%u", value);
-        m_Buffer.append(buffer);
+        ECString::append(buffer);
         return *this;
     }
 
     ECOstringstream &ECOstringstream::operator<<(long value) {
         char buffer[32];
         std::snprintf(buffer, sizeof(buffer), "%d", value);
-        m_Buffer.append(buffer);
+        ECString::append(buffer);
         return *this;
     }
 
     ECOstringstream &ECOstringstream::operator<<(unsigned long long value) {
         char buffer[32];
         std::snprintf(buffer, sizeof(buffer), "%llu", value);
-        m_Buffer.append(buffer);
+        ECString::append(buffer);
         return *this;
     }
 
     ECOstringstream &ECOstringstream::operator<<(long long value) {
         char buffer[32];
         std::snprintf(buffer, sizeof(buffer), "%lld", value);
-        m_Buffer.append(buffer);
+        ECString::append(buffer);
         return *this;
     }
 
