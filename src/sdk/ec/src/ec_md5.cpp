@@ -1,5 +1,5 @@
 #include <ec/md5.h>
-#include <ec/internal/md5.h>
+#include <ec/internal/md/md5.h>
 
 namespace ec {
 
@@ -7,7 +7,7 @@ namespace ec {
         MD5_CTX md5;
         unsigned char hash[16];
         MD5_Init(&md5);
-        MD5_Update(&md5, data, length);
+        MD5_Update(&md5, (unsigned char*)data, length);
         MD5_Final(hash, &md5);
 
         dest.clear();

@@ -262,6 +262,7 @@
                 "-lang=c99",
                 "-O4,s",
                 "-inline noauto",
+                "-ipa file",
 
                 "-d _STLP_WHOLE_NATIVE_STD",
                 "-d _STLP_DONT_REDEFINE_STD"
